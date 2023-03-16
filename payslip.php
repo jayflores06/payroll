@@ -15,6 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $total_deductions = $sss + $philhealth + $pagibig + $cash_advance;
   $net_pay = $gross_pay - $total_deductions;
 
+  //new comment
+
   // Check if file exists
   if (file_exists('payslip.pdf')) {
     // File exists, continue with download
