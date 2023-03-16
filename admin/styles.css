@@ -1,0 +1,127 @@
+body {
+    background-color: #252424;
+  }
+  
+  form {
+    background-color: #fff;
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 50px;
+    padding: 20px;
+    border-radius: 5px;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  h4 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .logo {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .btn-primary {
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+
+  a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+  }  
+
+  button {
+    margin-top: 10px;
+    align-items: center;
+    display: inline-block;
+    margin-right: 10px;
+  }
+  
+  .button-link-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+    align-items: center;
+  }
+  
+  /* To make the form responsive, you can use media queries like this: */
+  @media (max-width: 767px) {
+    form {
+      max-width: 100%;
+    }
+  }
+
+  /* Header Styling */
+.header {
+  background-color: #ccc;
+  color: black;
+  padding: 5px;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  background-color: black;
+  height: 100%;
+  position: fixed;
+  width: 200px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar li a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: white;
+}
+
+.sidebar li a:hover {
+  background-color: #555;
+  color: white;
+}
+
+/* Content Styling */
+.content {
+  margin-left: 200px;
+  padding: 20px;
+}
+
+/* Footer Styling */
+.footer {
+  background-color: #ccc;
+  color: black;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.bi-clock-history {
+  font-size: 2000%;
+  color: #000;
+}
+
+#current-time {
+  font-size: 300%;
+}
+
