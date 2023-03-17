@@ -2,11 +2,15 @@
 session_start();
 
 if (isset($_SESSION['fname']) && isset($_GET['id'])) {
+    // $sName = "localhost";
+    // $uName = "root";
+    // $pass = "";
+    // $db_name = "je_db";
+    
     $sName = "localhost";
-    $uName = "root";
-    $pass = "";
-    $db_name = "je_db";
-
+    $uName = "u521072993_capstone";
+    $pass = "Kodego123";
+    $db_name = "u521072993_payroll_db";
     $conn = new mysqli($sName, $uName, $pass, $db_name);
 
     $userId = $_GET['id'];

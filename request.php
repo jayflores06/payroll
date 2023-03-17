@@ -70,9 +70,9 @@ if (isset($_SESSION['fname'])) {
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			//connect to database
 			$sName = "localhost";
-			$uName = "root";
-			$pass = "";
-			$db_name = "je_db";
+			$uName = "u521072993_capstone";
+			$pass = "Kodego123";
+			$db_name = "u521072993_payroll_db";
 
 			try {
 				$conn = new PDO("mysql:host=$sName;dbname=$db_name", 
