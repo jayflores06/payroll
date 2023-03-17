@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	//insert data into database
 	$approval = 'Pending';
-	$sql = "INSERT INTO leave_request(user_id, type, start_date, end_date, reason, approval)VALUES ('$userId', '$leave_type', '$start_date', '$end_date', '$reason','$approval')";
+	$query = "INSERT INTO leave_request(user_id, type, start_date, end_date, reason, approval)VALUES ('$userId', '$leave_type', '$start_date', '$end_date', '$reason','$approval')";
 	$conn->query($query);
 }
 ?>
