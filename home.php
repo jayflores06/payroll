@@ -32,7 +32,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['fname'])) {
 
     <!-----CSS--------->
 	<link href="dashboard.css" rel="stylesheet">
-	<title>Admin Dashboard</title>  
+	<title>Employee Dashboard</title>  
 </head>
 <body>
     <div class="grid-container">

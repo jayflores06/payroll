@@ -22,7 +22,7 @@ if (isset($_SESSION['fname'])) {
 
     <!-----CSS--------->
 	<link href="dashboard.css" rel="stylesheet">
-	<title>Payroll</title>  
+	<title>Employee Leave Request</title>  
 </head>
 <body>
     <div class="grid-container">
