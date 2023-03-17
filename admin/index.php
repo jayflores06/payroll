@@ -59,7 +59,7 @@
 
   <button type="submit" class="btn btn-primary" name="submit">Login</button>
 </form>
-<a href="capstone/index.php">For Employee</a>
+<a href="../index.php">For Employee</a>
 </div>
 </body>
 </html>

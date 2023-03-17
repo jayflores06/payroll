@@ -1,13 +1,26 @@
 <?php 
 session_start();
 
-if (isset($_SESSION['fname'])) {
+if (isset($_SESSION['fname']) && isset($_GET['id'])) {
     $sName = "localhost";
     $uName = "root";
     $pass = "";
     $db_name = "je_db";
 
     $conn = new mysqli($sName, $uName, $pass, $db_name);
+
+    $userId = $_GET['id'];
+    $query = $conn->prepare('SELECT * FROM users WHERE id = ?');
+    $query->bind_param('i', $userId);
+    $query->execute();
+
+    $result = $query->get_result();
+    if($data = $result->fetch_assoc()){
+        $name = $data['fname'];
+    }else{
+        header('Location: home.php');
+    }
+    
  ?>
  
 <!DOCTYPE html>
@@ -41,7 +54,7 @@ if (isset($_SESSION['fname'])) {
             </div>
 
             <div class="text-center mt-3 float-end" id="btn-logout">
-                <a href="logout.php" class="btn btn-warning">
+                <a href="adminLogin.php" class="btn btn-warning">
                     Logout
                 </a>
             </div>    
@@ -79,58 +92,46 @@ if (isset($_SESSION['fname'])) {
     <!-- ----Main---------->
     
     <main class="main-container">
-        <div class="card bg-light">
-            <div class="card-body">
-                <div class="main-title text-dark">
-                    <h2 class="fw-bold">Dashboard</h2>
-
+        
+        <div class="card shadow bg-light text-dark col-xxl-5 mx-auto">
+            
+            <h3 class="fw-bold">Employee Payroll</h3>
+            <hr>
+            <div class="row row-cols-2 g-2">
+                <div class="col">
+                    <label class="fw-bold">Name:</label>
                 </div>
-                <hr class="bg-dark">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th name="id">ID</th>
-                                <th name="fname">FULLNAME</th>
-                                <th name="uname">USERNAME</th>
-                                <th name="position">POSITION</th>
-                                <th name="password">PASSWORD</th>
-                                <th name="action">ACTION</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                <div class="col">
+                    <label><?=$name?></label>
+                </div>
+                <div class="col">
+                    <label class="fw-bold">Hours Worked:</label>
+                </div>
+                <div class="col">
+                    <label>
                         <?php
-                            if($conn->connect_error) {
-                                die("connection failed:" . $conn->connect_error);
+                            $query = "SELECT * FROM attendance WHERE user_id = '$userId'";
+                            $attendanceresult = $conn->query($query);
+                            //initialize blank working hours
+                            $hours_worked = 0;
+                            while($attendanceData = $attendanceresult->fetch_assoc()){
+                                
+                                //calculate hours worked based on the time in time out
+                                $timeIn = date_create($attendanceData['time_in']);
+                                $timeOut = date_create($attendanceData['time_out']);
+                                $difference = date_diff($timeIn,$timeOut);
+                                $hours_worked += $difference->format('%h');
+                                
+                                // $gross_pay = $hourly_rate * $hours_worked;
+                                // $total_deductions = $sss + $philhealth + $pagibig + $cash_advance;
+                                // $net_pay = $gross_pay - $total_deductions;
                             }
-                            $sql = "SELECT * FROM users";
-                            $result = $conn->query($sql);
-
+                            echo $hours_worked;
                         ?>
-                            <?php
-                                while($row = $result->fetch_assoc()){
-                            ?>
-                            <tr>
-                            
-                                <td name="id"><?=$row['id']?></td>
-                                <td name="fname"><?=$row['fname']?></td>
-                                <td name="uname"><?=$row['username']?></td>
-                                <td name="position"><?=$row['position']?></td>
-                                <td name="password"><?=$row['password']?></td>
-                                <td name="action">
-                                    <a style="text-decoration:none" href="employee-payroll.php?id=<?=$row['id']?>"><button class="btn btn-dark">View Employee</button></a>
-                                </td>
-                            </tr>
-                            <?php
-                                }
-                            ?>
-                        </tbody>
-
-                    </table>
+                    </label>
                 </div>
             </div>
         </div>
-        
             
     </main> 
 
