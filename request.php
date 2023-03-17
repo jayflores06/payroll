@@ -10,6 +10,21 @@ $pass = "Kodego123";
 $db_name = "u521072993_payroll_db";
 
 $conn = new mysqli($sName,$uName,$pass,$db_name);
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	//get form data
+
+	$leave_type = $_POST['leave_type'];
+	$start_date = $_POST['start_date'];
+	$end_date = $_POST['end_date'];
+	$reason = $_POST['reason'];
+
+	//insert data into database
+	$approval = 'Pending';
+	$sql = "INSERT INTO leave_request(user_id, type, start_date, end_date, reason, approval)VALUES ('$userId', '$leave_type', '$start_date', '$end_date', '$reason','$approval')";
+	$conn->query($query);
+}
 ?>
 
 <!DOCTYPE html>
@@ -79,24 +94,8 @@ $conn = new mysqli($sName,$uName,$pass,$db_name);
 	<h1>Leave Request Form</h1>
 	<button data-bs-toggle="modal" data-bs-target="#request-modal" id="view-requests" class="btn btn-primary">View My Requests</button>
 
-	<?php
-		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			
 
-			//get form data
-
-			$leave_type = $_POST['leave_type'];
-			$start_date = $_POST['start_date'];
-			$end_date = $_POST['end_date'];
-			$reason = $_POST['reason'];
-
-			//insert data into database
-			$approval = 'Pending';
-			$sql = "INSERT INTO leave_request(user_id, type, start_date, end_date, reason, approval)VALUES ('$userId', '$leave_type', '$start_date', '$end_date', '$reason','$approval')";
-			$conn->query($query);
-		}
-	?>
-	<form method="post" id="request" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+	<form method="post" id="request" action="<?=$_SERVER["PHP_SELF"]?>">
 		<label for="leave_type">Request Type:</label>
 		<select id="leave_type" name="leave_type">
 			<option value="absent">Select your request</option>
