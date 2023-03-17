@@ -36,6 +36,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['fname'])) {
         $stmt->execute([$id, '0000-00-00', '0000-00-00']);
         echo "Clock out successful!";
     }
+    //comment
 ?>
 
 <!-- HTML code for the attendance page -->
