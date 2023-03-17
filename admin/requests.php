@@ -8,6 +8,15 @@ if (isset($_SESSION['fname'])) {
     $db_name = "u521072993_payroll_db";
 
     $conn = new mysqli($sName, $uName, $pass, $db_name);
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        $approval = $_POST['approval'];
+        $requestId = $_POST['id'];
+
+        $query = $conn->prepare('UPDATE leave_request SET approval = ? WHERE id = ?');
+        $query->bind_param('si', $approval, $requestId);
+        $query->execute();
+    }
  ?>
  
 <!DOCTYPE html>
@@ -113,8 +122,14 @@ if (isset($_SESSION['fname'])) {
                                 <td><?=$data['reason']?></td>
                                 <td><?=$data['approval']?></td>
                                 <td class="d-flex">
-                                    <button class="btn btn-dark">Approve</button>
-                                    <button class="btn btn-outline-dark">Decline</button>
+                                    <form action="<?=$_SERVER['PHP_SELF']?>" method="POST">
+                                        <input type="hidden" name="approval" value="Approved">
+                                        <button name="id" value="<?=$data['id']?>" class="btn btn-dark">Approve</button>
+                                    </form>
+                                    <form action="<?=$_SERVER['PHP_SELF']?>" method="POST">
+                                        <input type="hidden" name="approval" value="Declined">
+                                        <button name="id" value="<?=$data['id']?>" class="btn btn-outline-dark">Decline</button>
+                                    </form>
                                 </td>
                             </tr>
                         <?php

@@ -90,8 +90,9 @@ if (isset($_SESSION['fname'])) {
 			$reason = $_POST['reason'];
 
 			//insert data into database
-			$sql = "INSERT INTO leave_request(user_id, type, start_date, end_date, reason)
-        VALUES ('$userId', '$leave_type', '$start_date', '$end_date', '$reason')";
+			$approval = 'Pending';
+			$sql = "INSERT INTO leave_request(user_id, type, start_date, end_date, reason, approval)
+        VALUES ('$userId', '$leave_type', '$start_date', '$end_date', '$reason','$approval')";
 
 			try {
     		$conn->query($sql);
