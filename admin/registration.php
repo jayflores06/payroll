@@ -53,16 +53,13 @@ if (isset($_SESSION['fname'])) {
 
         <ul class="sidebar-list">
             <li class="sidebar-list-item">
-                <span class="material-icons-outlined">dashboard</span><a href="home.php">Dashboard</a>
+                <span class="material-icons-outlined">dashboard</span><a style="text-decoration: none; color: white" href="home.php">Dashboard</a>
             </li>
             <li class="sidebar-list-item">
-            <span class="material-icons-outlined">attendance</span><a href="attendance.php">Attendance</a>
+                <span class="material-icons-outlined">employee</span><a style="text-decoration: none; color: white" href="employee.php">Employees List</a></li>
             </li>
             <li class="sidebar-list-item">
-                <span class="material-icons-outlined">employee</span><a href="employee.php">Employees List</a></li>
-            </li>
-            <li class="sidebar-list-item">
-                <span class="material-icons-outlined">request_page</span><a href="registration.php">Registration</a></li>
+                <span class="material-icons-outlined">request_page</span><a style="text-decoration: none; color: white" href="registration.php">Registration</a></li>
             </li>
             
         </ul>
@@ -71,7 +68,7 @@ if (isset($_SESSION['fname'])) {
     <!----------ENd of sidebar--------->
 
     <!---Sign-up form--->
-<form id="registration" action="signup.php" 
+<form class="text-dark text-start" id="registration" action="signup.php" 
       method="post">
     <h4>Registration Here</h4>
     <div class="logo">
@@ -104,7 +101,7 @@ if (isset($_SESSION['fname'])) {
 
   <div class="mb-3">
     <label class="form-label" for="position">Position:</label>
-    <select id="position" name="position">
+    <select class="form-select" id="position" name="position">
       <option value=""></option>
       <option value="programmer">Programmer</option>
       <option value="hr staff">H.R.</option>
