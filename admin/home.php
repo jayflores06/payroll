@@ -54,9 +54,6 @@ if (isset($_SESSION['fname'])) {
                 <span class="material-icons-outlined">dashboard</span><a href="home.php">Dashboard</a>
             </li>
             <li class="sidebar-list-item">
-            <span class="material-icons-outlined">attendance</span><a href="attendance.php">Attendance</a>
-            </li>
-            <li class="sidebar-list-item">
                 <span class="material-icons-outlined">employee</span><a href="employee.php">Employees List</a></li>
             </li>
             <li class="sidebar-list-item">
@@ -90,28 +87,14 @@ if (isset($_SESSION['fname'])) {
                     <h1>1</h1>
                 </div>
             </div>
-
-            <div class="card">
-                <div class="card-inner">
-                <h3>On Time</h3>
-                <span class="material-icons-outlined">history</span>
-                    <h1>8</h1>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-inner">
-                <h3>Late</h3>
-                <span class="material-icons-outlined">warning</span>
-                    <h1>1</h1>
-                </div>
-            </div>
         </div>
 
         <div class="charts">
             <div class="charts-card">
                 <h2 class="chart-title">Attendance</h2>
-                <div id="bar-chart"></div>
+                <div id="bar-chart">
+
+                </div>
             </div>
         </div>
     </main>
@@ -122,7 +105,144 @@ if (isset($_SESSION['fname'])) {
     <!--------Apex Charts------------------->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.37.1/apexcharts.min.js"></script>
     <!-----------js--------->
-    <script src="script.js"></script>
+    <script>
+
+    
+    // SIDEBAR TOGGLE
+
+    var sidebarOpen = false;
+    var sidebar = document.getElementById("sidebar");
+
+    function openSidebar() {
+        if(!sidebarOpen) {
+            sidebar.classList.add("sidebar-responsive");
+            sidebarOpen = true;
+        }
+    }
+
+    function closeSidebar() {
+        if(!sidebarOpen) {
+            sidebar.classList.remove("sidebar-responsive");
+            sidebarOpen = false;
+        }
+    }
+
+    // --------CHARTS------------
+
+
+
+
+
+    // --------Bar Chart
+    var barChartOptions = {
+        series: [{
+        data: [<?=$present?>,<?=$absent?>],
+        name: "Attendance",
+        }],
+        chart: {
+        type: 'bar',
+        background: "transparent",
+        height: 350,
+        toolbar: {
+            show: false,
+        },
+        },
+        colors: [
+        "#2962ff",
+        "#d50000",
+        "#2e7d32",
+        "#ff6d00",
+        "#583cb3",
+        ],
+        plotOptions: {
+        bar: {
+            distributed: true,
+            borderRadius: 4,
+            horizontal: false,
+            columnWidth: "40%",
+        },
+        },
+        dataLabels: {
+        enabled: false,
+        },
+        fill: {
+        opacity: 1,
+        },
+        grid: {
+        borderColor: "#55596e",
+        yaxis: {
+            lines: {
+            show: true,
+            },
+        },
+        xaxis: {
+            lines: {
+            show: true,
+            },
+        },
+        },
+        legend: {
+        showForSingleSeries: false,
+        labels: {
+            colors: "#f5f7ff",
+        },
+        show: true,
+        width: 2,
+        },
+        tooltip: {
+        shared: true,
+        intersect: false,
+        theme: "dark",
+        }, 
+        xaxis: {
+            categories:[<?=$present?>,<?=$absent?>],
+            title: {
+                style: {
+                color: "#f5f7ff",
+                },
+            },
+            axisBorder: {
+                show: true,
+                color: "#55596e",
+            },
+            axisTicks: {
+                show: true,
+                color: "#55596e",
+            },
+            labels: {
+                style: {
+                colors: "#f5f7ff",
+                },
+            },
+        },
+            yaxis: {
+            title: {
+                text: "Count",
+                style: {
+                color: "#f5f7ff",
+                },
+            },
+            axisBorder: {
+                show: true,
+                color: "#55596e",
+            },
+            axisTicks: {
+                show: true,
+                color: "#55596e",
+            },
+            labels: {
+                style: {
+                colors: "#f5f7ff",
+                },
+            },
+        },
+    };
+    
+    var barChart = new ApexCharts(document.querySelector("#bar-chart"), barChartOptions);
+    barChart.render();
+    
+
+    </script>
 
 	
 

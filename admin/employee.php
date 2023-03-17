@@ -59,16 +59,13 @@ if (isset($_SESSION['fname'])) {
 
         <ul class="sidebar-list">
             <li class="sidebar-list-item">
-                <span class="material-icons-outlined">dashboard</span><a href="home.php">Dashboard</a>
+                <span class="material-icons-outlined">dashboard</span><a style="text-decoration: none; color: white" href="home.php">Dashboard</a>
             </li>
             <li class="sidebar-list-item">
-            <span class="material-icons-outlined">attendance</span><a href="attendance.php">Attendance</a>
+                <span class="material-icons-outlined">employee</span><a style="text-decoration: none; color: white" href="employee.php">Employees List</a></li>
             </li>
             <li class="sidebar-list-item">
-                <span class="material-icons-outlined">employee</span><a href="employee.php">Employees List</a></li>
-            </li>
-            <li class="sidebar-list-item">
-                <span class="material-icons-outlined">request_page</span><a href="registration.php">Registration</a></li>
+                <span class="material-icons-outlined">request_page</span><a style="text-decoration: none; color: white" href="registration.php">Registration</a></li>
             </li>
             
         </ul>

@@ -72,23 +72,20 @@ if (isset($_SESSION['fname']) && isset($_GET['id'])) {
 
         <ul class="sidebar-list">
             <li class="sidebar-list-item">
-                <span class="material-icons-outlined">dashboard</span><a href="home.php">Dashboard</a>
+                <span class="material-icons-outlined">dashboard</span><a style="text-decoration: none; color: white" href="home.php">Dashboard</a>
             </li>
             <li class="sidebar-list-item">
-            <span class="material-icons-outlined">attendance</span><a href="attendance.php">Attendance</a>
+                <span class="material-icons-outlined">employee</span><a style="text-decoration: none; color: white" href="employee.php">Employees List</a></li>
             </li>
             <li class="sidebar-list-item">
-                <span class="material-icons-outlined">employee</span><a href="employee.php">Employees List</a></li>
-            </li>
-            <li class="sidebar-list-item">
-                <span class="material-icons-outlined">request_page</span><a href="registration.php">Registration</a></li>
+                <span class="material-icons-outlined">request_page</span><a style="text-decoration: none; color: white" href="registration.php">Registration</a></li>
             </li>
             
         </ul>
         <a href="logout.php" class="btn btn-warning">Logout</a>
     </aside>
     <!----------ENd of sidebar--------->
-	/*
+
     <!-- ----Main---------->
     
     <main class="main-container">
@@ -193,7 +190,11 @@ if (isset($_SESSION['fname']) && isset($_GET['id'])) {
                 $gross_pay = $hourly_rate * $hours_worked;
                 $total_deductions = $sss + $philhealth + $pagibig + $cash_advance;
                 $net_pay = $gross_pay - $total_deductions;
-
+                
+                $date = date('Y-m-d H:i:s');
+                $query = $conn->prepare('INSERT INTO payroll_details(user_id,hourly_rate,sss,philhealth,pag_ibig,cash_advance,date)VALUES(?,?,?,?,?,?,?)');
+                $query->bind_param('iddddds', $userId, $hourly_rate, $sss, $philhealth, $pagibig, $cash_advance, $date);
+                $query->execute();
 
          ?>
             <div class="card bg-light shadow col-xxl-5 mx-auto mt-4 text-dark">
@@ -253,10 +254,87 @@ if (isset($_SESSION['fname']) && isset($_GET['id'])) {
                         <label class="fw-bold">Net Pay: </label>
                     </div>
                     <div class="col">
-                        <label class="<?php if($net_pay < 0){ echo 'text-danger'; } ?>">- &#8369; <?=$net_pay?></label>
+                        <label class="<?php if($net_pay < 0){ echo 'text-danger'; } ?>">&#8369; <?=$net_pay?></label>
                     </div>
                 </div>
+
+                <button onclick="print()" class="btn btn-primary w-100 mt-3">Print</button>
             </div>
+
+            
+            
+            <div id="print-area" class="text-black">
+                <style>
+                    @media print{
+                        .flex{
+                            display: flex;
+                            justify-content: space-between;
+                        }
+                        .bold{
+                            font-weight: bold;
+                        }
+                        .text-black{
+                            color: black;
+                        }
+                        *{
+                            font-family: sans-serif;
+                            font-size: 25px;
+                        }
+                        h1{
+                            letter-spacing: 4px;
+                            font-weight: bold;
+                            font-size: 40px;
+                            text-align: center
+                        }
+                    }
+                    
+                
+                </style>
+
+                <h1>PAYSLIP</h1>
+                <hr>
+                <div class="flex">
+                    <p class="bold">Name:</p><p><?=$name?></p>
+                </div>
+
+                <div class="flex">
+                    <p class="bold">Hours Worked:</p><p><?=$hours_worked?></p>
+                </div>
+                <div class="flex">
+                    <p class="bold">Hourly Rate:</p><p>&#8369; <?=$hourly_rate?></p>
+                </div>
+                <div class="flex">
+                    <p class="bold">SSS:</p><p>&#8369; <?=$sss?></p>
+                </div>
+                <div class="flex">
+                    <p class="bold">PhilHealth</p><p>&#8369; <?=$philhealth?></p>
+                </div>
+                <div class="flex">
+                    <p class="bold">PAGIBIG</p><p>&#8369; <?=$pagibig?></p>
+                </div>
+                <div class="flex">
+                    <p class="bold">Cash Advance:</p><p>&#8369; <?=$cash_advance?></p>
+                </div>
+                <div class="flex">
+                    <p class="bold">Net Pay:</p><p>&#8369; <?=$net_pay?></p>
+                </div>
+                
+            </div>
+
+            <script>
+                document.getElementById('print-area').style.display = 'none';
+                function print(){
+                    let printarea = document.getElementById('print-area').innerHTML; 
+                    
+                    let newWindow = window.open();
+
+                    newWindow.document.write('<html><head><title></title><body>');
+                    newWindow.document.write(printarea);
+                    newWindow.document.write('</body</html');
+                    newWindow.print();
+                    newWindow.close();
+                }
+            </script>
         <?php
             }
         ?>
