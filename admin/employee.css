@@ -245,7 +245,7 @@ body{
         }
     }
 
-    form {
+    #registration{
         background-color: #fff;
         max-width: 600px;
         margin: 0 auto;

@@ -90,12 +90,11 @@ if (isset($_SESSION['fname'])) {
                     <table class="table">
                         <thead>
                             <tr>
-                                <th name="id">ID</th>
-                                <th name="fname">FULLNAME</th>
-                                <th name="uname">USERNAME</th>
-                                <th name="position">POSITION</th>
-                                <th name="password">PASSWORD</th>
-                                <th name="action">ACTION</th>
+                                <th name="fname">Full Name</th>
+                                <th name="uname">User Name</th>
+                                <th name="position">Position</th>
+                                <th name="password">Password</th>
+                                <th name="action">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -111,8 +110,6 @@ if (isset($_SESSION['fname'])) {
                                 while($row = $result->fetch_assoc()){
                             ?>
                             <tr>
-                            
-                                <td name="id"><?=$row['id']?></td>
                                 <td name="fname"><?=$row['fname']?></td>
                                 <td name="uname"><?=$row['username']?></td>
                                 <td name="position"><?=$row['position']?></td>
