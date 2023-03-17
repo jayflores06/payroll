@@ -71,7 +71,7 @@ if (isset($_SESSION['fname'])) {
     <!----------ENd of sidebar--------->
 
     <!---Sign-up form--->
-<form action="signup.php" 
+<form id="registration" action="signup.php" 
       method="post">
     <h4>Registration Here</h4>
     <div class="logo">

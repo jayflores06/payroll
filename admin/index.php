@@ -43,18 +43,18 @@
     <!--for the alert--->
     <?php if(isset($_GET['error'])){ ?>
     		<div class="alert alert-danger" role="alert">
-			  <?php echo $_GET['error']; ?>
-			</div>
+          <?php echo $_GET['error']; ?>
+        </div>
 	<?php } ?>
 
   <div class="mb-3">
     <label class="form-label" for="username">User Name</label>
-    <input type="text" class="form-control" name="username" >
+    <input required type="text" class="form-control" name="username" >
   </div>
 
   <div class="mb-3">
     <label class="form-label" for="password" name = "password" >Password</label>
-    <input type="password" class="form-control" name="password">
+    <input required type="password" class="form-control" name="password">
   </div>
 
   <button type="submit" class="btn btn-primary" name="submit">Login</button>

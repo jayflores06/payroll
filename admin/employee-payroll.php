@@ -54,7 +54,7 @@ if (isset($_SESSION['fname']) && isset($_GET['id'])) {
             </div>
 
             <div class="text-center mt-3 float-end" id="btn-logout">
-                <a href="adminLogin.php" class="btn btn-warning">
+                <a href="logout.php" class="btn btn-warning">
                     Logout
                 </a>
             </div>    
@@ -122,16 +122,144 @@ if (isset($_SESSION['fname']) && isset($_GET['id'])) {
                                 $difference = date_diff($timeIn,$timeOut);
                                 $hours_worked += $difference->format('%h');
                                 
-                                // $gross_pay = $hourly_rate * $hours_worked;
-                                // $total_deductions = $sss + $philhealth + $pagibig + $cash_advance;
-                                // $net_pay = $gross_pay - $total_deductions;
+                                
                             }
                             echo $hours_worked;
                         ?>
                     </label>
                 </div>
             </div>
+
+            <hr>
+            <form class="row row-cols-2 g-2" action="<?=$_SERVER['PHP_SELF'].'?id='.$userId?>" method="POST">
+                <div class="col">
+                    <label class="fw-bold">Hourly Rate:</label>
+                </div>
+                <div class="col">
+                    <input required name="hourly_rate" type="number" placeholder="Hourly Rate" class="form-control">
+                </div>
+                <div class="col">
+                    <label class="fw-bold">SSS:</label>
+                </div>
+                
+                <div class="col">
+                    <input name="sss" required type="number" placeholder="SSS" class="form-control">
+                </div>
+                
+
+                <div class="col">
+                    <label class="fw-bold">PhilHealth:</label>
+                </div>
+                
+
+                <div class="col">
+                    <input name="philhealth" required type="number" placeholder="PhilHealth" class="form-control">
+                </div>
+                
+            
+                <div class="col">
+                    <label class="fw-bold">PAGIBIG:</label>
+                </div>
+                
+                <div class="col">
+                    <input name="pagibig" required type="number" placeholder="PAGIBIG" class="form-control">
+                </div>
+            
+                
+            
+                <div class="col">
+                    <label class="fw-bold">Cash Advance:</label>
+                </div>
+                
+            
+                <div class="col">
+                    <input name="cashadvance" type="number" placeholder="Cash Advance" class="form-control">
+                </div>
+                
+
+                <button class="btn btn-primary mt-3 w-100">Calculate Pay</button>
+            </form>
         </div>
+
+
+        <?php
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+                $hourly_rate = $_POST['hourly_rate'];
+                $sss = $_POST['sss'];
+                $philhealth = $_POST['philhealth'];
+                $pagibig = $_POST['pagibig'];
+                $cash_advance = $_POST['cashadvance'];
+                $gross_pay = $hourly_rate * $hours_worked;
+                $total_deductions = $sss + $philhealth + $pagibig + $cash_advance;
+                $net_pay = $gross_pay - $total_deductions;
+
+
+         ?>
+            <div class="card bg-light shadow col-xxl-5 mx-auto mt-4 text-dark">
+                <div class="row row-cols-2 g-2">
+                    <div class="col">
+                        <label class="fw-bold">Name: </label>
+                    </div>
+                    <div class="col">
+                        <label><?=$name?></label>
+                    </div>
+                    <div class="col">
+                        <label class="fw-bold">Hours Worked: </label>
+                    </div>
+                    <div class="col">
+                        <label><?=$hours_worked?></label>
+                    </div>
+                    <div class="col">
+                        <label class="fw-bold">Gross Pay: </label>
+                    </div>
+                    <div class="col">
+                        <label>&#8369; <?=$gross_pay?></label>
+                    </div>
+                    <div class="col">
+                        <label class="fw-bold">SSS: </label>
+                    </div>
+                    <div class="col">
+                        <label>- &#8369; <?=$sss?></label>
+                    </div>
+                    <div class="col">
+                        <label class="fw-bold">SSS: </label>
+                    </div>
+                    <div class="col">
+                        <label>- &#8369; <?=$sss?></label>
+                    </div>
+                    <div class="col">
+                        <label class="fw-bold">PhilHealth: </label>
+                    </div>
+                    <div class="col">
+                        <label>- &#8369; <?=$philhealth?></label>
+                    </div>
+                    <div class="col">
+                        <label class="fw-bold">PAGIBIG: </label>
+                    </div>
+                    <div class="col">
+                        <label>- &#8369; <?=$pagibig?></label>
+                    </div>
+                    <div class="col">
+                        <label class="fw-bold">Cash Advance: </label>
+                    </div>
+                    <div class="col">
+                        <label>- &#8369; <?=$cash_advance?></label>
+                    </div>
+                </div>
+                <hr>
+                <div class="row row-cols-2 g-2">
+                    <div class="col">
+                        <label class="fw-bold">Net Pay: </label>
+                    </div>
+                    <div class="col">
+                        <label class="<?php if($net_pay < 0){ echo 'text-danger'; } ?>">- &#8369; <?=$net_pay?></label>
+                    </div>
+                </div>
+            </div>
+        <?php
+            }
+        ?>
             
     </main> 
 
