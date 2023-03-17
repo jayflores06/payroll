@@ -278,7 +278,7 @@ if (isset($_SESSION['fname'])) {
 </html>
 
 <?php }else {
-	header("Location: home.php");
+	header("Location: index.php");
 	exit;
 } ?>
 
