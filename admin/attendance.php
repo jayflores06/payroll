@@ -1,4 +1,10 @@
 
+<?php
+    session_start();
+    if(!isset($_SESSION['fname'])){
+        header('Location: index.php');
+    }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +18,7 @@
 <body>
     <div class="header">
     <div class="text-center mt-3 float-end" id="btn-logout">
-        <a href="/capstone/logout.php" class="btn btn-warning">
+        <a href="logout.php" class="btn btn-warning">
             Logout
         </a>  
     </div>

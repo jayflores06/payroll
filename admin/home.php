@@ -33,7 +33,7 @@ if (isset($_SESSION['fname'])) {
             </div>
 
             <div class="text-center mt-3 float-end" id="btn-logout">
-                <a href="adminLogin.php" class="btn btn-warning">
+                <a href="logout.php" class="btn btn-warning">
                     Logout
                 </a>
             </div>    
