@@ -83,15 +83,15 @@ if (isset($_SESSION['fname'])) {
 			}
 
 			//get form data
-			$name = $_SESSION['fname'];
+			$userId = $_SESSION['id'];
 			$leave_type = $_POST['leave_type'];
 			$start_date = $_POST['start_date'];
 			$end_date = $_POST['end_date'];
 			$reason = $_POST['reason'];
 
 			//insert data into database
-			$sql = "INSERT INTO leave_requests (name, leave_type, start_date, end_date, reason)
-        VALUES ('$name', '$leave_type', '$start_date', '$end_date', '$reason')";
+			$sql = "INSERT INTO leave_request(user_id, type, start_date, end_date, reason)
+        VALUES ('$userId', '$leave_type', '$start_date', '$end_date', '$reason')";
 
 			try {
     		$conn->query($sql);

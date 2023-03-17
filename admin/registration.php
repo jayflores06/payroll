@@ -56,6 +56,9 @@ if (isset($_SESSION['fname'])) {
                 <span class="material-icons-outlined">dashboard</span><a style="text-decoration: none; color: white" href="home.php">Dashboard</a>
             </li>
             <li class="sidebar-list-item">
+                <span class="material-icons-outlined">dashboard</span><a style="text-decoration: none; color: white" href="requests.php">Leave Requests</a>
+            </li>
+            <li class="sidebar-list-item">
                 <span class="material-icons-outlined">employee</span><a style="text-decoration: none; color: white" href="employee.php">Employees List</a></li>
             </li>
             <li class="sidebar-list-item">

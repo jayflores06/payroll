@@ -61,6 +61,7 @@ if (isset($_SESSION['fname'])) {
             <li class="sidebar-list-item">
                 <span class="material-icons-outlined">dashboard</span><a style="text-decoration: none; color: white" href="home.php">Dashboard</a>
             </li>
+
             <li class="sidebar-list-item">
                 <span class="material-icons-outlined">dashboard</span><a style="text-decoration: none; color: white" href="requests.php">Leave Requests</a>
             </li>
@@ -75,60 +76,54 @@ if (isset($_SESSION['fname'])) {
         <a href="logout.php" class="btn btn-warning">Logout</a>
     </aside>
     <!----------ENd of sidebar--------->
-	/*
     <!-- ----Main---------->
     
     <main class="main-container">
-        <div class="card bg-light">
-            <div class="card-body">
-                <div class="main-title text-dark">
-                    <h2 class="fw-bold">Dashboard</h2>
-
-                </div>
-                <hr class="bg-dark">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th name="fname">Full Name</th>
-                                <th name="uname">User Name</th>
-                                <th name="position">Position</th>
-                                <th name="password">Password</th>
-                                <th name="action">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+        <div class="card bg-light shadow">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <th scope="col">Employee Name</th>
+                        <th scope="col">Leave Type</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">End Date</th>
+                        <th scope="col">Reason</th>
+                        <th scope="col">Approval</th>
+                        <th scope="col">Action</th>
+                    </thead>
+                    <tbody>
                         <?php
-                            if($conn->connect_error) {
-                                die("connection failed:" . $conn->connect_error);
-                            }
-                            $sql = "SELECT * FROM users";
-                            $result = $conn->query($sql);
-
+                            $query = "SELECT * FROM leave_request";
+                            $result = $conn->query($query);
+                            while($data = $result->fetch_assoc()){
+                                $userId = $data['user_id'];
+                                $query = "SELECT fname FROM users WHERE id = '$userId'";
+                                $userResult = $conn->query($query);
+                                if($userData = $userResult->fetch_assoc()){
+                                    $name = $userData['fname'];
+                                }else{
+                                    $name = 'Uknown Employee';
+                                }
                         ?>
-                            <?php
-                                while($row = $result->fetch_assoc()){
-                            ?>
                             <tr>
-                                <td name="fname"><?=$row['fname']?></td>
-                                <td name="uname"><?=$row['username']?></td>
-                                <td name="position"><?=$row['position']?></td>
-                                <td name="password"><?=$row['password']?></td>
-                                <td name="action">
-                                    <a style="text-decoration:none" href="employee-payroll.php?id=<?=$row['id']?>"><button class="btn btn-dark">View Employee</button></a>
+                                <td><?=$name?></td>
+                                <td><?=$data['type']?></td>
+                                <td><?=$data['start_date']?></td>
+                                <td><?=$data['end_date']?></td>
+                                <td><?=$data['reason']?></td>
+                                <td><?=$data['approval']?></td>
+                                <td class="d-flex">
+                                    <button class="btn btn-dark">Approve</button>
+                                    <button class="btn btn-outline-dark">Decline</button>
                                 </td>
                             </tr>
-                            <?php
-                                }
-                            ?>
-                        </tbody>
-
-                    </table>
-                </div>
+                        <?php
+                            }
+                        ?>
+                    </tbody>
+                </table>
             </div>
         </div>
-        
-            
     </main> 
 
     <!------End Main---------->
