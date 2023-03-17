@@ -38,7 +38,7 @@ if (isset ($_POST['uname']) &&
           $id =  $user['id'];
 
           if($username === $uname){
-            if(password_verify($pass, $password)){
+            if($pass == $password){
                 $_SESSION['id'] = $id;
                 $_SESSION['fname'] = $fname;
 
