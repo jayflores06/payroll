@@ -2,6 +2,7 @@
 session_start();
 
 if (isset($_SESSION['fname'])) {
+	$userId = $_SESSION['id'];
 //connect to database
 $sName = "localhost";
 $uName = "u521072993_capstone";
@@ -83,7 +84,7 @@ $conn = new mysqli($sName,$uName,$pass,$db_name);
 			
 
 			//get form data
-			$userId = $_SESSION['id'];
+
 			$leave_type = $_POST['leave_type'];
 			$start_date = $_POST['start_date'];
 			$end_date = $_POST['end_date'];
