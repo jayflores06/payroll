@@ -1,6 +1,11 @@
 <?php 
 session_start();
+$sName = "localhost";
+$uName = "u521072993_capstone";
+$pass = "Kodego123";
+$db_name = "u521072993_payroll_db";
 
+$conn = new mysqli_connect($sName, $uName, $pass, $db_name);
 if (isset($_SESSION['fname'])) {
  ?>
 <!DOCTYPE html>
@@ -79,7 +84,34 @@ if (isset($_SESSION['fname'])) {
                 <div class="card-inner">
                 <h3>Present</h3>
                     <span class="material-icons-outlined">people_alt</span>
-                    <h1>9</h1>
+                    <h1>
+                        <?php
+                            //get all employees
+
+                            $query = "SELECT * FROM users";
+                            $userResult = $conn->query($query);
+                            $present = 0;
+                            $absent = 0;
+                            while($userData = $userResult->fetch_assoc()){
+                                //get attendance for each employee
+                                $userId = $userData['id'];
+                                $query = "SELECT * FROM attendance WHERE user_id = '$userId'";
+                                $attendanceResult = $conn->query($query);
+
+                                while($attendanceData = $attendanceResult->fetch_assoc()){
+                                    //check for present and absent
+                                    if($attendanceData['time_in'] != '0000-00-00 00:00:00'){
+                                        $present++;
+                                    }else{
+                                        $absent++;
+                                    }
+                                }
+                            }
+
+                            echo $present;
+                        ?>
+
+                    </h1>
                 </div>
             </div>
 
@@ -87,16 +119,9 @@ if (isset($_SESSION['fname'])) {
                 <div class="card-inner">
                 <h3> Absent</h3>
                 <span class="material-icons-outlined">calendar_month</span>
-                    <h1>1</h1>
-                </div>
-            </div>
-        </div>
-
-        <div class="charts">
-            <div class="charts-card">
-                <h2 class="chart-title">Attendance</h2>
-                <div id="bar-chart">
-
+                    <h1>
+                        <?=$absent?>
+                    </h1>
                 </div>
             </div>
         </div>
