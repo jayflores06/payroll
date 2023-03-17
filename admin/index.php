@@ -37,7 +37,7 @@
       method="post">
     <h4>Admin Login Here</h4>
     <div class="logo">
-          <img src="logo.jpg" alt="Your Logo">
+          <img src="logo.JPG" alt="Your Logo">
       </div>
 
     <!--for the alert--->
