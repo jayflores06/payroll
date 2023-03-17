@@ -4,9 +4,9 @@ session_start();
 if (isset($_SESSION['id']) && isset($_SESSION['fname'])) {
     $userId = $_SESSION['id'];
     $sName = "localhost";
-    $uName = "root";
-    $pass = "";
-    $db_name = "je_db";
+    $uName = "u521072993_capstone";
+    $pass = "Kodego123";
+    $db_name = "u521072993_payroll_db";
 
     try {
         $conn = new PDO("mysql:host=$sName;dbname=$db_name", $uName, $pass);

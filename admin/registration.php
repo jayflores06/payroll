@@ -74,9 +74,6 @@ if (isset($_SESSION['fname'])) {
 <form class="text-dark text-start" id="registration" action="signup.php" 
       method="post">
     <h4>Registration Here</h4>
-    <div class="logo">
-          <img src="logo.jpg" alt="Your Logo">
-      </div>
 
     <!--for the alert--->
     <?php if(isset($_GET['error'])) { ?>
