@@ -10,6 +10,10 @@
 </head>
 <body>
     <?php
+        session_start();
+        if(isset($_SESSION['fname'])){
+          header('Location: home.php');
+        }
         if(isset($_POST['submit'])){
             $username = "admin";
             $password = "kodego123";
@@ -17,7 +21,7 @@
             $admin_pasword = $_POST['password'];
 
             if($admin_username == $username && $admin_pasword == $password){
-              session_start();
+              
               $_SESSION['fname'] = $username;
                 header("Location: home.php");
                 exit();
@@ -29,7 +33,7 @@
     ?>
 
 <div>
-<form action="adminLogin.php" 
+<form action="<?=$_SERVER['PHP_SELF']?>" 
       method="post">
     <h4>Admin Login Here</h4>
     <div class="logo">

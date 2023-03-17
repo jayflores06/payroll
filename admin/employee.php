@@ -70,8 +70,8 @@ if (isset($_SESSION['fname'])) {
     </aside>
     <!----------ENd of sidebar--------->
 	/*
-    <!------Main---------->
-    <!--
+    <!-- ----Main---------->
+    
     <main class="main-container">
         <div class="main-title">
             <h2>Dashboard</h2>
@@ -101,7 +101,7 @@ if (isset($_SESSION['fname'])) {
         </div>
             
     </main> 
--->
+
     <!------End Main---------->
     
         <!-----php code----->
