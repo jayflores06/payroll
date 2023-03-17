@@ -333,7 +333,7 @@ if (isset($_SESSION['fname']) && isset($_GET['id'])) {
                 function print(){
                     let printarea = document.getElementById('print-area').innerHTML; 
                     
-                    let newWindow = window.open();
+                    let newWindow = window.open('');
 
                     newWindow.document.write('<html><head><title></title><body>');
                     newWindow.document.write(printarea);

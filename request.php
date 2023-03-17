@@ -2,7 +2,13 @@
 session_start();
 
 if (isset($_SESSION['fname'])) {
+//connect to database
+$sName = "localhost";
+$uName = "u521072993_capstone";
+$pass = "Kodego123";
+$db_name = "u521072993_payroll_db";
 
+$conn = new mysqli($sName,$uName,$pass,$db_name);
 ?>
 
 <!DOCTYPE html>
@@ -10,6 +16,7 @@ if (isset($_SESSION['fname'])) {
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!------Monserrat------->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
@@ -65,22 +72,14 @@ if (isset($_SESSION['fname'])) {
 
     <!------Main---------->
     <main class="main-container text-center">
+
+
 	<h1>Leave Request Form</h1>
+	<button data-bs-toggle="modal" data-bs-target="#request-modal" id="view-requests" class="btn btn-primary">View My Requests</button>
+
 	<?php
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			//connect to database
-			$sName = "localhost";
-			$uName = "u521072993_capstone";
-			$pass = "Kodego123";
-			$db_name = "u521072993_payroll_db";
-
-			try {
-				$conn = new PDO("mysql:host=$sName;dbname=$db_name", 
-								$uName, $pass);
-				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			}catch(PDOException $e){
-			  echo "Connection failed : ". $e->getMessage();
-			}
+			
 
 			//get form data
 			$userId = $_SESSION['id'];
@@ -91,17 +90,8 @@ if (isset($_SESSION['fname'])) {
 
 			//insert data into database
 			$approval = 'Pending';
-			$sql = "INSERT INTO leave_request(user_id, type, start_date, end_date, reason, approval)
-        VALUES ('$userId', '$leave_type', '$start_date', '$end_date', '$reason','$approval')";
-
-			try {
-    		$conn->query($sql);
-    		echo "Leave request submitted successfully.";
-			} catch (PDOException $e) {
-    		echo "Error: " . $e->getMessage();
-			}
-
-unset($conn);
+			$sql = "INSERT INTO leave_request(user_id, type, start_date, end_date, reason, approval)VALUES ('$userId', '$leave_type', '$start_date', '$end_date', '$reason','$approval')";
+			$conn->query($query);
 		}
 	?>
 	<form method="post" id="request" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
@@ -129,6 +119,45 @@ unset($conn);
     </main>
     <!------End Main---------->
     </div>
+
+	<div id="request-modal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="modal-title">
+						<h3 class="fw-bold">My Leave Requests</h3>
+					</div>
+					<button class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+				<div class="modal-body">
+					<div class="table-responsive">
+						<table class="table table-striped">
+							<thead>
+								<th scope="col">Type</th>
+								<th scope="col">Reason</th>
+								<th scope="col">Approval</th>
+							</thead>
+							<tbody>
+								<?php
+									$query = "SELECT * FROM leave_request WHERE user_id = '$userId'";
+									$requestResult = $conn->query($query);
+									while($requestRow = $requestResult->fetch_assoc()){
+								?>
+									<tr>
+										<td><?=$requestRow['type']?></td>
+										<td><?=$requestRow['reason']?></td>
+										<td><?=$requestRow['approval']?></td>
+									</tr>
+								<?php
+									}
+								?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
 
