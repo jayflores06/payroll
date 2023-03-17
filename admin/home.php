@@ -5,7 +5,7 @@ $uName = "u521072993_capstone";
 $pass = "Kodego123";
 $db_name = "u521072993_payroll_db";
 
-$conn = new mysqli_connect($sName, $uName, $pass, $db_name);
+$conn = new mysqli($sName, $uName, $pass, $db_name);
 if (isset($_SESSION['fname'])) {
  ?>
 <!DOCTYPE html>
